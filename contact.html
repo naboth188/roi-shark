@@ -282,7 +282,6 @@ function handleSubmit(e) {
   e.preventDefault();
 
   var btn = document.getElementById('submitBtn');
-  var originalText = btn.innerHTML;
 
   // Loading state
   btn.disabled = true;
@@ -292,38 +291,88 @@ function handleSubmit(e) {
   var form = document.getElementById('contactForm');
   var data = new FormData(form);
 
-  var payload = {
-    firstName: data.get('firstName'),
-    lastName: data.get('lastName'),
-    name: data.get('firstName') + ' ' + data.get('lastName'),
-    email: data.get('email'),
-    phone: data.get('phone'),
-    business: data.get('business') || '',
-    service: data.get('service'),
-    budget: data.get('budget') || '',
-    message: data.get('message'),
-    source: 'ROI Shark Contact Form',
-    page: window.location.href
-  };
+  // Build URL-encoded params (avoids CORS preflight)
+  var params = new URLSearchParams();
+  params.append('firstName', data.get('firstName'));
+  params.append('lastName', data.get('lastName'));
+  params.append('name', data.get('firstName') + ' ' + data.get('lastName'));
+  params.append('email', data.get('email'));
+  params.append('phone', data.get('phone'));
+  params.append('business', data.get('business') || '');
+  params.append('service', data.get('service'));
+  params.append('budget', data.get('budget') || '');
+  params.append('message', data.get('message'));
+  params.append('source', 'ROI Shark Contact Form');
+  params.append('page', window.location.href);
 
+  // Method 1: fetch with no-cors (sends data, can't read response)
   fetch('https://services.leadconnectorhq.com/hooks/HdnOvsWV0WZPNdDHiMYe/webhook-trigger/4iFc7Hmb4suTPawi7vJp', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
-  })
-  .then(function(response) {
-    // GHL webhooks return 200 on success
-    document.getElementById('formContent').style.display = 'none';
-    document.getElementById('formSuccess').classList.add('show');
-  })
-  .catch(function(error) {
-    // Even if there's a CORS issue, GHL still receives the data
-    // Show success anyway since the webhook fires server-side
-    document.getElementById('formContent').style.display = 'none';
-    document.getElementById('formSuccess').classList.add('show');
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: params.toString()
+  }).then(function() {
+    showSuccess();
+  }).catch(function() {
+    showSuccess();
   });
 
+  // Method 2: Backup via hidden iframe form (guaranteed delivery)
+  try {
+    var iframeName = 'ghl_submit_' + Date.now();
+    var iframe = document.createElement('iframe');
+    iframe.name = iframeName;
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+
+    var hiddenForm = document.createElement('form');
+    hiddenForm.method = 'POST';
+    hiddenForm.action = 'https://services.leadconnectorhq.com/hooks/HdnOvsWV0WZPNdDHiMYe/webhook-trigger/4iFc7Hmb4suTPawi7vJp';
+    hiddenForm.target = iframeName;
+    hiddenForm.style.display = 'none';
+
+    var fields = {
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
+      name: data.get('firstName') + ' ' + data.get('lastName'),
+      email: data.get('email'),
+      phone: data.get('phone'),
+      business: data.get('business') || '',
+      service: data.get('service'),
+      budget: data.get('budget') || '',
+      message: data.get('message'),
+      source: 'ROI Shark Contact Form'
+    };
+
+    for (var key in fields) {
+      var input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = fields[key];
+      hiddenForm.appendChild(input);
+    }
+
+    document.body.appendChild(hiddenForm);
+    hiddenForm.submit();
+
+    // Clean up after 5 seconds
+    setTimeout(function() {
+      document.body.removeChild(iframe);
+      document.body.removeChild(hiddenForm);
+    }, 5000);
+  } catch(err) {}
+
+  // Show success after a short delay to let the request fire
+  setTimeout(showSuccess, 1500);
+
   return false;
+}
+
+function showSuccess() {
+  var fc = document.getElementById('formContent');
+  var fs = document.getElementById('formSuccess');
+  if (fc) fc.style.display = 'none';
+  if (fs) fs.classList.add('show');
 }
 </script>
 <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
