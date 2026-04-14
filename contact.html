@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start Your Project — ROI SHARK</title>
+<meta name="description" content="Tell us about your project and we'll build you a revenue machine. Custom websites, AI chatbots, email automation, and more — engineered to dominate.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:'Inter',system-ui,sans-serif;color:#d4d4d8;background:#000;-webkit-font-smoothing:antialiased;line-height:1.6;margin:0;padding:0;overflow-x:hidden}
+h1,h2,h3,h4,h5,h6{font-family:'Orbitron',sans-serif;line-height:1.15;color:#fafafa;letter-spacing:.5px}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+button{border:none;background:none;cursor:pointer;font-family:inherit}
+ul{list-style:none}
+
+:root{
+--shark:#06b6d4;--shark-bright:#22d3ee;--shark-deep:#0891b2;--shark-dark:#155e75;
+--shark-glow:rgba(6,182,212,.12);--shark-glow-strong:rgba(6,182,212,.25);
+--shark-blue:#3b82f6;--shark-electric:#00f0ff;
+--bg:#000;--bg-card:#0a0a0a;--bg-elevated:#111;
+--fg:#fafafa;--fg-muted:#a1a1aa;--fg-dim:#71717a;
+--border:#1a1a1a;--border-light:#2a2a2a;
+--gradient-electric:linear-gradient(135deg,#06b6d4,#3b82f6,#06b6d4);
+--mono:'JetBrains Mono',monospace;
+}
+
+/* ==================== NAVBAR ==================== */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:50;padding:20px 24px;background:rgba(0,0,0,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.navbar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-img{width:42px;height:42px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(6,182,212,.4))}
+.logo-text{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;color:var(--fg);letter-spacing:2px}
+.logo-text span{color:var(--shark-bright)}
+.nav-back{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:var(--fg-dim);font-family:'Orbitron',sans-serif;letter-spacing:1px;text-transform:uppercase;transition:color .2s}
+.nav-back:hover{color:var(--shark-bright)}
+.nav-back svg{width:16px;height:16px;stroke:currentColor;fill:none}
+
+/* ==================== LAYOUT ==================== */
+.contact-page{min-height:100vh;padding:120px 24px 80px;display:flex;justify-content:center}
+.contact-wrapper{width:100%;max-width:1100px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+@media(max-width:900px){.contact-wrapper{grid-template-columns:1fr;gap:48px}}
+
+/* ==================== LEFT COLUMN — INFO ==================== */
+.contact-info{padding-top:20px}
+.contact-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border:1px solid rgba(6,182,212,.2);background:rgba(6,182,212,.06);font-family:var(--mono);font-size:11px;font-weight:600;color:var(--shark-bright);letter-spacing:2px;text-transform:uppercase;margin-bottom:24px}
+.contact-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--shark-bright);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(34,211,238,.4)}50%{opacity:.6;box-shadow:0 0 0 6px rgba(34,211,238,0)}}
+.contact-headline{font-size:clamp(28px,5vw,44px);font-weight:800;line-height:1.12;margin-bottom:20px;text-transform:uppercase;letter-spacing:.5px}
+.contact-headline .highlight{background:var(--gradient-electric);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 4s linear infinite}
+@keyframes shimmer{0%{background-position:0% center}100%{background-position:300% center}}
+.contact-sub{font-size:16px;color:var(--fg-muted);line-height:1.7;margin-bottom:40px;max-width:440px}
+
+/* What Happens Next */
+.contact-steps{display:flex;flex-direction:column;gap:20px;margin-bottom:40px}
+.contact-step{display:flex;gap:16px;align-items:flex-start}
+.contact-step-num{width:36px;height:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-light);font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;color:var(--shark-bright)}
+.contact-step-text h4{font-size:13px;font-weight:700;color:var(--fg);margin-bottom:2px;font-family:'Orbitron',sans-serif;letter-spacing:.5px;text-transform:uppercase}
+.contact-step-text p{font-size:13px;color:var(--fg-dim);line-height:1.6}
+
+/* Direct Contact */
+.contact-direct{display:flex;flex-direction:column;gap:12px;padding-top:8px}
+.contact-direct-item{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--fg-dim)}
+.contact-direct-item svg{width:16px;height:16px;stroke:var(--shark);fill:none;flex-shrink:0}
+.contact-direct-item a{color:var(--fg-muted);transition:color .2s}
+.contact-direct-item a:hover{color:var(--shark-bright)}
+
+/* ==================== RIGHT COLUMN — FORM ==================== */
+.contact-form-wrap{background:var(--bg-card);border:1px solid var(--border-light);padding:40px 36px;position:relative;overflow:hidden}
+.contact-form-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--shark),transparent)}
+.contact-form-title{font-size:16px;font-weight:700;margin-bottom:8px;letter-spacing:1px;text-transform:uppercase}
+.contact-form-sub{font-size:13px;color:var(--fg-dim);margin-bottom:32px;font-family:var(--mono);letter-spacing:.5px}
+
+.form-group{margin-bottom:20px}
+.form-label{display:block;font-size:11px;font-weight:700;color:var(--fg-dim);font-family:'Orbitron',sans-serif;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+.form-label .req{color:var(--shark-bright)}
+.form-input,.form-select,.form-textarea{width:100%;padding:14px 16px;background:var(--bg);border:1px solid var(--border-light);color:var(--fg);font-family:'Inter',sans-serif;font-size:14px;transition:all .2s;outline:none}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--shark);box-shadow:0 0 0 3px var(--shark-glow)}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--fg-dim)}
+.form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;cursor:pointer}
+.form-select option{background:var(--bg-card);color:var(--fg)}
+.form-textarea{min-height:120px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:500px){.form-row{grid-template-columns:1fr}}
+
+.form-submit{width:100%;padding:18px 32px;background:var(--shark);color:#000;font-family:'Orbitron',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:none;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:8px;box-shadow:0 0 30px var(--shark-glow),inset 0 1px 0 rgba(255,255,255,.15)}
+.form-submit:hover{background:var(--shark-bright);transform:translateY(-2px);box-shadow:0 0 50px var(--shark-glow-strong),0 8px 30px rgba(0,0,0,.5)}
+.form-submit svg{width:18px;height:18px;fill:none;stroke:#000;stroke-width:2}
+.form-note{font-size:11px;color:var(--fg-dim);text-align:center;margin-top:16px;font-family:var(--mono);letter-spacing:.5px}
+
+/* Success State */
+.form-success{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 24px;gap:20px}
+.form-success.show{display:flex}
+.form-success svg{width:56px;height:56px;stroke:var(--shark-bright);fill:none}
+.form-success h3{font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.form-success p{font-size:14px;color:var(--fg-muted);max-width:340px;line-height:1.7}
+
+/* ==================== BACKGROUND ==================== */
+.bg-glow{position:fixed;border-radius:50%;filter:blur(150px);pointer-events:none;z-index:-1}
+.bg-glow-1{width:500px;height:500px;top:-200px;right:-100px;background:var(--shark);opacity:.04}
+.bg-glow-2{width:400px;height:400px;bottom:10%;left:-150px;background:var(--shark-blue);opacity:.03}
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.anim{animation:fadeUp .6s ease-out both}
+.anim-d1{animation-delay:.1s}.anim-d2{animation-delay:.2s}.anim-d3{animation-delay:.3s}.anim-d4{animation-delay:.4s}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<div class="bg-glow bg-glow-1"></div>
+<div class="bg-glow bg-glow-2"></div>
+
+<!-- ==================== NAVBAR ==================== -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo">
+      <img src="shark-logo.png" alt="ROI Shark" class="logo-img">
+      <span class="logo-text">ROI <span>SHARK</span></span>
+    </a>
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Back to Home
+    </a>
+  </div>
+</nav>
+
+<!-- ==================== CONTACT PAGE ==================== -->
+<div class="contact-page">
+  <div class="contact-wrapper">
+
+    <!-- LEFT — Info -->
+    <div class="contact-info anim">
+      <div class="contact-eyebrow">
+        <span class="contact-eyebrow-dot"></span>
+        LET'S BUILD
+      </div>
+      <h1 class="contact-headline">
+        Tell Us What<br>
+        You Need.<br>
+        <span class="highlight">We'll Build It.</span>
+      </h1>
+      <p class="contact-sub">
+        Fill out the form and we'll get back to you within 24 hours with a custom plan of attack for your business.
+      </p>
+
+      <div class="contact-steps anim anim-d1">
+        <div class="contact-step">
+          <div class="contact-step-num">01</div>
+          <div class="contact-step-text">
+            <h4>You Submit</h4>
+            <p>Tell us about your business, goals, and what you need built.</p>
+          </div>
+        </div>
+        <div class="contact-step">
+          <div class="contact-step-num">02</div>
+          <div class="contact-step-text">
+            <h4>We Analyze</h4>
+            <p>We review your submission and build a custom strategy within 24 hours.</p>
+          </div>
+        </div>
+        <div class="contact-step">
+          <div class="contact-step-num">03</div>
+          <div class="contact-step-text">
+            <h4>We Execute</h4>
+            <p>Once approved, we start building your revenue machine immediately.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-direct anim anim-d2">
+        <div class="contact-direct-item">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:naboth188@gmail.com">naboth188@gmail.com</a>
+        </div>
+        <div class="contact-direct-item">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <a href="tel:+12404218510">(240) 421-8510</a>
+        </div>
+        <div class="contact-direct-item">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Response time: under 24 hours</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT — Form -->
+    <div class="contact-form-wrap anim anim-d2">
+      <div id="formContent">
+        <h2 class="contact-form-title">Start Your Project</h2>
+        <p class="contact-form-sub">// ALL_FIELDS_REQUIRED</p>
+
+        <form id="contactForm" onsubmit="return handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="firstName">First Name <span class="req">*</span></label>
+              <input class="form-input" type="text" id="firstName" name="firstName" placeholder="John" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="lastName">Last Name <span class="req">*</span></label>
+              <input class="form-input" type="text" id="lastName" name="lastName" placeholder="Doe" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="email">Email <span class="req">*</span></label>
+              <input class="form-input" type="email" id="email" name="email" placeholder="john@company.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="phone">Phone <span class="req">*</span></label>
+              <input class="form-input" type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="business">Business Name</label>
+            <input class="form-input" type="text" id="business" name="business" placeholder="Your Company LLC">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="service">What Do You Need? <span class="req">*</span></label>
+            <select class="form-select" id="service" name="service" required>
+              <option value="" disabled selected>Select a service</option>
+              <option value="website">Website Design & Development</option>
+              <option value="seo">SEO Domination</option>
+              <option value="email">Email Automation</option>
+              <option value="chatbot">AI Chatbot Integration</option>
+              <option value="booking">Appointment Booking System</option>
+              <option value="missed-call">Missed Call Text Back</option>
+              <option value="full-stack">Full Predator Stack (Everything)</option>
+              <option value="other">Other / Not Sure Yet</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="budget">Budget Range</label>
+            <select class="form-select" id="budget" name="budget">
+              <option value="" disabled selected>Select your budget</option>
+              <option value="strike">$2,500 — Strike Tier</option>
+              <option value="frenzy">$5,000 — Feeding Frenzy Tier</option>
+              <option value="apex">$5,000+ — Apex Predator (Custom)</option>
+              <option value="unsure">Not sure yet</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="message">Project Details <span class="req">*</span></label>
+            <textarea class="form-textarea" id="message" name="message" placeholder="Tell us about your business, your goals, and what you want built. The more detail, the better our strategy..." required></textarea>
+          </div>
+
+          <button type="submit" class="form-submit" id="submitBtn">
+            Submit Project Request
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+          <p class="form-note">ZERO_SPAM // RESPONSE: 24H // 100%_CONFIDENTIAL</p>
+        </form>
+      </div>
+
+      <!-- Success State -->
+      <div class="form-success" id="formSuccess">
+        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <h3>Request Received</h3>
+        <p>We've got your submission. Expect a custom strategy in your inbox within 24 hours. The hunt begins now.</p>
+        <a href="index.html" style="margin-top:12px;display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:transparent;border:1px solid var(--border-light);color:var(--fg-muted);font-family:'Orbitron',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;transition:all .2s">
+          <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back to Home
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  var form = document.getElementById('contactForm');
+  var data = new FormData(form);
+
+  // Build mailto with form data
+  var subject = encodeURIComponent('New Project Request from ' + data.get('firstName') + ' ' + data.get('lastName'));
+  var body = encodeURIComponent(
+    'NEW PROJECT REQUEST\n' +
+    '==================\n\n' +
+    'Name: ' + data.get('firstName') + ' ' + data.get('lastName') + '\n' +
+    'Email: ' + data.get('email') + '\n' +
+    'Phone: ' + data.get('phone') + '\n' +
+    'Business: ' + (data.get('business') || 'N/A') + '\n' +
+    'Service: ' + data.get('service') + '\n' +
+    'Budget: ' + (data.get('budget') || 'Not specified') + '\n\n' +
+    'Project Details:\n' + data.get('message')
+  );
+
+  // Open mailto
+  window.location.href = 'mailto:naboth188@gmail.com?subject=' + subject + '&body=' + body;
+
+  // Show success
+  document.getElementById('formContent').style.display = 'none';
+  document.getElementById('formSuccess').classList.add('show');
+
+  return false;
+}
+</script>
+</body>
+</html>
