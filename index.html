@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROI SHARK — Websites, Automation & AI That Devour the Competition</title>
+<meta name="description" content="ROI SHARK builds high-converting websites, AI chatbots, email automation, and appointment booking systems. We hunt down results and devour the competition.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:'Inter',system-ui,sans-serif;color:#d4d4d8;background:#000;-webkit-font-smoothing:antialiased;line-height:1.6;margin:0;padding:0;overflow-x:hidden}
+h1,h2,h3,h4,h5,h6{font-family:'Orbitron',sans-serif;line-height:1.15;color:#fafafa;text-transform:uppercase;letter-spacing:.5px}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+button{border:none;background:none;cursor:pointer;font-family:inherit}
+ul{list-style:none}
+
+:root{
+--shark:#06b6d4;--shark-bright:#22d3ee;--shark-deep:#0891b2;--shark-dark:#155e75;
+--shark-glow:rgba(6,182,212,.12);--shark-glow-strong:rgba(6,182,212,.25);
+--shark-blue:#3b82f6;--shark-electric:#00f0ff;
+--bg:#000;--bg-card:#0a0a0a;--bg-elevated:#141414;
+--fg:#fafafa;--fg-muted:#a1a1aa;--fg-dim:#71717a;
+--border:#1a1a1a;--border-light:#2a2a2a;
+--gradient:linear-gradient(135deg,#06b6d4,#0891b2);
+--gradient-electric:linear-gradient(135deg,#06b6d4,#3b82f6,#06b6d4);
+--gradient-cyber:linear-gradient(135deg,#00f0ff,#06b6d4,#3b82f6);
+--max-w:1200px;
+--mono:'JetBrains Mono',monospace;
+}
+
+.container{max-width:var(--max-w);margin:0 auto;padding:0 24px}
+.text-center{text-align:center}
+
+/* --- Cyber Glow Text --- */
+.shark-text{color:var(--shark-bright)}
+.glow-text{color:var(--shark);text-shadow:0 0 20px var(--shark-glow-strong),0 0 60px rgba(6,182,212,.08)}
+.grad-text{background:var(--gradient-electric);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:cyberShimmer 4s linear infinite}
+@keyframes cyberShimmer{0%{background-position:0% center}100%{background-position:300% center}}
+
+/* --- Buttons --- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;border-radius:4px;transition:all .25s;cursor:pointer;line-height:1;font-family:'Orbitron',sans-serif;letter-spacing:.5px;text-transform:uppercase;font-size:13px}
+.btn-lg{padding:18px 36px;font-size:14px}
+.btn-xl{padding:22px 48px;font-size:15px}
+.btn-sm{padding:10px 24px;font-size:12px}
+.btn-shark{background:var(--shark);color:#000;font-weight:700;box-shadow:0 0 30px var(--shark-glow),inset 0 1px 0 rgba(255,255,255,.15)}
+.btn-shark:hover{background:var(--shark-bright);transform:translateY(-2px);box-shadow:0 0 50px var(--shark-glow-strong),0 8px 30px rgba(0,0,0,.5)}
+.btn-ghost{background:transparent;border:1px solid var(--border-light);color:var(--fg-muted)}
+.btn-ghost:hover{border-color:var(--shark);color:var(--shark-bright);box-shadow:0 0 20px var(--shark-glow)}
+.btn-outline{background:transparent;border:1px solid var(--shark);color:var(--shark)}
+.btn-outline:hover{background:var(--shark);color:#000}
+.btn svg{width:16px;height:16px;flex-shrink:0}
+
+/* --- Badge --- */
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:2px;font-size:11px;font-weight:600;line-height:1.4;font-family:'Orbitron',sans-serif;letter-spacing:1.5px;text-transform:uppercase}
+.badge-shark{background:var(--shark-glow);color:var(--shark-bright);border:1px solid rgba(6,182,212,.2)}
+
+/* --- Scanline Effect --- */
+.scanline{position:relative;overflow:hidden}
+.scanline::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(6,182,212,.01) 2px,rgba(6,182,212,.01) 4px);pointer-events:none;z-index:1}
+
+/* --- Navbar --- */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:50;padding:20px 24px;transition:all .3s}
+.navbar.scrolled{background:rgba(0,0,0,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:14px 24px}
+.navbar-inner{max-width:var(--max-w);margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-img{width:42px;height:42px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(6,182,212,.4))}
+.logo-text{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;color:var(--fg);letter-spacing:2px}
+.logo-text span{color:var(--shark-bright)}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-link{font-size:12px;font-weight:500;color:var(--fg-dim);transition:color .2s;font-family:'Orbitron',sans-serif;letter-spacing:1px;text-transform:uppercase}
+.nav-link:hover{color:var(--shark-bright)}
+.mobile-toggle{display:none;width:44px;height:44px;align-items:center;justify-content:center}
+.mobile-toggle svg{stroke:var(--fg);width:24px;height:24px}
+.mobile-menu{display:none;flex-direction:column;background:var(--bg-elevated);border:1px solid var(--border);margin-top:16px;padding:24px;gap:16px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:14px;font-weight:500;color:var(--fg-muted);font-family:'Orbitron',sans-serif;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.nav-links{display:none!important}.mobile-toggle{display:flex}}
+
+/* --- Hero --- */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:140px 24px 100px}
+
+/* Video Background */
+.hero-video-wrap{position:absolute;inset:0;z-index:1;overflow:hidden}
+.hero-video{position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;width:auto;height:auto;transform:translate(-50%,-50%);object-fit:cover}
+.hero-video-overlay{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(0,0,0,.70) 0%,rgba(0,0,0,.55) 35%,rgba(0,0,0,.65) 70%,rgba(0,0,0,.90) 100%)}
+.hero-video-vignette{position:absolute;inset:0;z-index:3;box-shadow:inset 0 0 200px 60px rgba(0,0,0,.7)}
+.hero-video-scanlines{position:absolute;inset:0;z-index:4;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(6,182,212,.015) 2px,rgba(6,182,212,.015) 4px);pointer-events:none}
+.hero-video-glow{position:absolute;inset:0;z-index:3;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(6,182,212,.06),transparent 70%);pointer-events:none}
+
+.hero-grid{position:absolute;inset:0;z-index:5;background-image:linear-gradient(rgba(6,182,212,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(6,182,212,.03) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,black,transparent);pointer-events:none}
+.hero-glow{position:absolute;border-radius:50%;filter:blur(120px);z-index:5;pointer-events:none}
+.hero-glow-1{width:600px;height:600px;top:-200px;right:-100px;background:var(--shark);opacity:.05}
+.hero-glow-2{width:400px;height:400px;bottom:-100px;left:-100px;background:var(--shark-blue);opacity:.04}
+.hero-glow-3{width:300px;height:300px;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--shark-electric);opacity:.03}
+.hero-line{position:absolute;top:0;width:1px;height:100%;background:linear-gradient(to bottom,transparent,rgba(6,182,212,.10),transparent);z-index:5;pointer-events:none}
+.hero-content{position:relative;z-index:10;max-width:920px;text-align:center}
+
+/* --- Shark Icon in Hero (compact above heading) --- */
+.hero-shark{width:72px;height:72px;margin:0 auto 20px;object-fit:contain;filter:drop-shadow(0 0 20px rgba(6,182,212,.5)) drop-shadow(0 0 50px rgba(6,182,212,.2));animation:sharkFloat 3s ease-in-out infinite}
+@keyframes sharkFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.03)}}
+
+.hero-tag{font-family:var(--mono);font-size:13px;color:var(--shark);letter-spacing:2px;margin-bottom:24px;display:block}
+.hero h1{font-size:clamp(40px,8vw,80px);font-weight:900;margin-bottom:32px;letter-spacing:1px;line-height:1.05;text-shadow:0 2px 40px rgba(0,0,0,.6)}
+.hero .sub{font-size:clamp(16px,2vw,19px);color:var(--fg-muted);font-weight:400;line-height:1.8;max-width:640px;margin:0 auto 48px;text-shadow:0 1px 10px rgba(0,0,0,.5)}
+.hero-btns{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px;margin-bottom:72px}
+.hero-metrics{display:flex;align-items:center;justify-content:center;gap:1px;flex-wrap:wrap}
+.hero-metric{text-align:center;padding:24px 40px;background:rgba(10,10,10,.75);backdrop-filter:blur(12px);border:1px solid rgba(6,182,212,.12)}
+.hero-metric:first-child{border-radius:4px 0 0 4px}
+.hero-metric:last-child{border-radius:0 4px 4px 0}
+.hero-metric-num{font-family:'Orbitron',sans-serif;font-size:28px;font-weight:700;color:var(--shark-bright);margin-bottom:4px;text-shadow:0 0 20px rgba(6,182,212,.3)}
+.hero-metric-label{font-size:11px;color:var(--fg-dim);text-transform:uppercase;letter-spacing:2px;font-family:'Orbitron',sans-serif}
+@media(max-width:640px){.hero-metrics{flex-direction:column;gap:0}.hero-metric{width:100%;border-radius:0!important}.hero-metric:first-child{border-radius:4px 4px 0 0!important}.hero-metric:last-child{border-radius:0 0 4px 4px!important}}
+
+/* --- Sections --- */
+.section{padding:100px 0}
+.section-label{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:var(--shark);font-family:'Orbitron',sans-serif;text-transform:uppercase;letter-spacing:3px;margin-bottom:20px}
+.section-label svg{width:16px;height:16px}
+.section-title{font-size:clamp(28px,5vw,48px);font-weight:800;margin-bottom:20px;letter-spacing:1px}
+.section-desc{font-size:17px;color:var(--fg-muted);max-width:580px;margin:0 auto;line-height:1.7}
+.section-line{border:none;height:1px;background:var(--border);margin:0}
+
+/* --- Services --- */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:64px;background:var(--border)}
+@media(max-width:1024px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.svc-grid{grid-template-columns:1fr}}
+.svc-card{background:var(--bg);padding:40px 32px;transition:all .3s;position:relative;overflow:hidden}
+.svc-card:hover{background:var(--bg-card)}
+.svc-card:hover .svc-line{width:100%}
+.svc-card:hover .svc-icon svg{stroke:var(--shark-bright)}
+.svc-line{position:absolute;top:0;left:0;height:2px;width:0;background:var(--gradient-cyber);transition:width .4s}
+.svc-icon{width:48px;height:48px;border:1px solid var(--border-light);display:flex;align-items:center;justify-content:center;margin-bottom:24px;transition:border-color .3s}
+.svc-card:hover .svc-icon{border-color:var(--shark)}
+.svc-icon svg{width:22px;height:22px;stroke:var(--fg-dim);transition:stroke .3s}
+.svc-card h3{font-size:16px;font-weight:700;margin-bottom:12px;letter-spacing:.5px}
+.svc-card p{font-size:14px;color:var(--fg-dim);line-height:1.7}
+.svc-num{position:absolute;top:16px;right:20px;font-family:'Orbitron',sans-serif;font-size:11px;color:rgba(6,182,212,.2);font-weight:700;letter-spacing:2px}
+
+/* --- Process --- */
+.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:64px;background:var(--border)}
+@media(max-width:1024px){.proc-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.proc-grid{grid-template-columns:1fr}}
+.proc-card{background:var(--bg);padding:40px 28px;text-align:center;position:relative}
+.proc-num{font-family:'Orbitron',sans-serif;font-size:56px;font-weight:900;color:rgba(6,182,212,.08);margin-bottom:16px;line-height:1}
+.proc-card h3{font-size:14px;font-weight:700;margin-bottom:12px;letter-spacing:1px}
+.proc-card p{font-size:13px;color:var(--fg-dim);line-height:1.7}
+
+/* --- Preview Builds --- */
+.preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
+@media(max-width:1024px){.preview-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.preview-grid{grid-template-columns:1fr}}
+.preview-card{position:relative;background:var(--bg-card);border:1px solid var(--border);overflow:hidden;transition:all .3s}
+.preview-card:hover{border-color:var(--shark);box-shadow:0 0 40px var(--shark-glow)}
+.preview-card:hover .preview-img img{transform:scale(1.05)}
+.preview-img{aspect-ratio:16/10;overflow:hidden;position:relative}
+.preview-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.preview-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8),transparent 40%)}
+.preview-type{position:absolute;top:12px;left:12px;z-index:2;font-family:var(--mono);font-size:10px;padding:4px 10px;background:rgba(0,0,0,.7);border:1px solid var(--border-light);color:var(--shark-bright);letter-spacing:1px;text-transform:uppercase}
+.preview-body{padding:24px}
+.preview-body h3{font-size:15px;font-weight:700;margin-bottom:8px;letter-spacing:.5px}
+.preview-body p{font-size:13px;color:var(--fg-dim);line-height:1.6;margin-bottom:14px}
+.preview-tags{display:flex;gap:6px;flex-wrap:wrap}
+.preview-tag{padding:3px 10px;font-size:10px;font-weight:600;font-family:var(--mono);background:var(--shark-glow);color:var(--shark-bright);border:1px solid rgba(6,182,212,.1);letter-spacing:.5px}
+
+/* --- Pricing --- */
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:64px;background:var(--border)}
+@media(max-width:1024px){.price-grid{grid-template-columns:1fr;max-width:450px;margin-left:auto;margin-right:auto;margin-top:64px;background:var(--border)}}
+.price-card{background:var(--bg);padding:48px 32px;text-align:center;position:relative}
+.price-card.featured{background:var(--bg-card);border-top:2px solid var(--shark)}
+.price-card .price-label{font-family:var(--mono);font-size:10px;color:var(--shark);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.price-card h3{font-size:20px;font-weight:700;margin-bottom:8px;letter-spacing:1px}
+.price-card .price-sub{font-size:13px;color:var(--fg-dim);margin-bottom:28px}
+.price-amt{font-family:'Orbitron',sans-serif;font-size:44px;font-weight:900;color:var(--fg);margin-bottom:4px;letter-spacing:-1px}
+.price-amt span{font-size:14px;font-weight:400;color:var(--fg-dim)}
+.price-note{font-size:12px;color:var(--fg-dim);margin-bottom:32px;font-family:var(--mono)}
+.price-features{text-align:left;display:flex;flex-direction:column;gap:14px;margin-bottom:36px}
+.price-feat{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--fg-muted)}
+.price-feat svg{width:16px;height:16px;stroke:var(--shark-bright);flex-shrink:0}
+
+/* --- CTA --- */
+.cta-section{position:relative}
+.cta-box{border:1px solid var(--border);padding:clamp(48px,6vw,80px);text-align:center;position:relative;overflow:hidden;background:var(--bg-card)}
+.cta-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--shark),transparent)}
+.cta-glow{position:absolute;width:500px;height:500px;border-radius:50%;filter:blur(140px);opacity:.06;background:var(--shark)}
+.cta-glow-1{top:-200px;left:50%;transform:translateX(-50%)}
+
+/* --- Footer --- */
+.footer{padding:80px 0 40px;border-top:1px solid var(--border)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:64px}
+@media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}}
+@media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+.footer-desc{font-size:14px;color:var(--fg-dim);margin:16px 0 24px;line-height:1.7;max-width:300px}
+.footer-h{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;color:var(--shark);text-transform:uppercase;letter-spacing:3px;margin-bottom:20px}
+.footer-ul{display:flex;flex-direction:column;gap:14px}
+.footer-ul a{font-size:13px;color:var(--fg-dim);transition:color .2s}
+.footer-ul a:hover{color:var(--shark-bright)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--fg-dim);font-family:var(--mono)}
+.footer-socials{display:flex;gap:8px}
+.footer-social{width:38px;height:38px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .2s}
+.footer-social:hover{border-color:var(--shark);box-shadow:0 0 15px var(--shark-glow)}
+.footer-social svg{width:16px;height:16px;stroke:var(--fg-dim)}
+.footer-social:hover svg{stroke:var(--shark-bright)}
+.footer-logo-shark{width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 0 6px rgba(6,182,212,.3))}
+
+/* --- Animations --- */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.anim{animation:fadeUp .7s ease-out both}
+.anim-d1{animation-delay:.1s}.anim-d2{animation-delay:.2s}.anim-d3{animation-delay:.3s}.anim-d4{animation-delay:.4s}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.pulse{animation:pulse 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.cursor-blink::after{content:'_';animation:blink 1s step-end infinite;color:var(--shark)}
+
+/* --- Water ripple effect on hover for cards --- */
+.svc-card::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;border-radius:50%;background:radial-gradient(circle,rgba(6,182,212,.06),transparent 70%);transition:width .5s,height .5s,top .3s,left .3s;z-index:0}
+.svc-card:hover::before{width:300px;height:300px;top:calc(50% - 150px);left:calc(50% - 150px)}
+
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<!-- ====================== NAVBAR ====================== -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <a href="#" class="logo">
+      <img src="shark-logo.png" alt="ROI Shark" class="logo-img">
+      <span class="logo-text">ROI <span>SHARK</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#process" class="nav-link">Process</a>
+      <a href="#work" class="nav-link">Work</a>
+      <a href="#pricing" class="nav-link">Pricing</a>
+      <a href="mailto:naboth188@gmail.com?subject=I%20Want%20to%20Start%20a%20Project&body=Hi%20ROI%20SHARK%2C%0A%0AI'm%20interested%20in%20starting%20a%20project.%20Here's%20a%20bit%20about%20what%20I%20need%3A%0A%0A" class="btn btn-sm btn-shark">Start a Project</a>
+    </div>
+    <button class="mobile-toggle" id="menuBtn" aria-label="Open menu"><i data-lucide="menu" id="menuIcon"></i></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#services" onclick="closeMenu()">Services</a>
+    <a href="#process" onclick="closeMenu()">Process</a>
+    <a href="#work" onclick="closeMenu()">Work</a>
+    <a href="#pricing" onclick="closeMenu()">Pricing</a>
+    <a href="mailto:naboth188@gmail.com?subject=I%20Want%20to%20Start%20a%20Project&body=Hi%20ROI%20SHARK%2C%0A%0AI'm%20interested%20in%20starting%20a%20project.%20Here's%20a%20bit%20about%20what%20I%20need%3A%0A%0A" class="btn btn-sm btn-shark" style="text-align:center;margin-top:8px" onclick="closeMenu()">Start a Project</a>
+  </div>
+</nav>
+
+<!-- ====================== HERO ====================== -->
+<section class="hero" id="hero-section">
+  <!-- Video Background -->
+  <div class="hero-video-wrap">
+    <video class="hero-video" autoplay muted loop playsinline id="heroVideo">
+      <source src="shark-animation.mp4" type="video/mp4">
+    </video>
+    <div class="hero-video-overlay"></div>
+    <div class="hero-video-vignette"></div>
+    <div class="hero-video-scanlines"></div>
+    <div class="hero-video-glow"></div>
+  </div>
+  <!-- Grid & Glow Effects -->
+  <div class="hero-grid"></div>
+  <div class="hero-glow hero-glow-1"></div>
+  <div class="hero-glow hero-glow-2"></div>
+  <div class="hero-glow hero-glow-3"></div>
+  <div class="hero-line" style="left:20%"></div>
+  <div class="hero-line" style="left:50%"></div>
+  <div class="hero-line" style="left:80%"></div>
+  <!-- Content -->
+  <div class="hero-content">
+    <img src="shark-logo.png" alt="ROI Shark Icon" class="hero-shark anim">
+    <span class="hero-tag anim anim-d1">// DEPLOYING_PREDATOR_PROTOCOL <span class="cursor-blink"></span></span>
+    <h1 class="anim anim-d1">We Don't Build Websites<br>We Build <span class="grad-text">Revenue Machines</span></h1>
+    <p class="sub anim anim-d2">High-converting websites, AI automation, and growth systems engineered with surgical precision. Your competitors are prey — we make sure of it.</p>
+    <div class="hero-btns anim anim-d3">
+      <a href="mailto:naboth188@gmail.com?subject=I%20Want%20to%20Launch%20a%20Project&body=Hi%20ROI%20SHARK%2C%0A%0AI'm%20ready%20to%20launch%20a%20project.%20Here's%20what%20I'm%20looking%20for%3A%0A%0A" class="btn btn-lg btn-shark">Launch Your Project <i data-lucide="arrow-right"></i></a>
+      <a href="#work" class="btn btn-lg btn-ghost">View Our Builds <i data-lucide="external-link"></i></a>
+    </div>
+    <div class="hero-metrics anim anim-d4">
+      <div class="hero-metric"><div class="hero-metric-num">6</div><div class="hero-metric-label">Core Services</div></div>
+      <div class="hero-metric"><div class="hero-metric-num">100%</div><div class="hero-metric-label">Custom Built</div></div>
+      <div class="hero-metric"><div class="hero-metric-num">24H</div><div class="hero-metric-label">Response Time</div></div>
+      <div class="hero-metric"><div class="hero-metric-num">∞</div><div class="hero-metric-label">Revisions</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-line">
+
+<!-- ====================== SERVICES ====================== -->
+<section id="services" class="section">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-label"><i data-lucide="terminal"></i> Hunting Systems Online</div>
+      <h2 class="section-title">Six Ways We<br><span class="shark-text">Devour Your Competition</span></h2>
+      <p class="section-desc">From the website that hooks leads to the AI that reels them in — we build the entire predator ecosystem so nothing escapes.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card">
+        <div class="svc-line"></div><span class="svc-num">001</span>
+        <div class="svc-icon"><i data-lucide="globe"></i></div>
+        <h3>Website Design & Dev</h3>
+        <p>Custom-coded, conversion-optimized websites that load in under 2 seconds and turn visitors into paying customers. No templates, no WordPress bloat.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-line"></div><span class="svc-num">002</span>
+        <div class="svc-icon"><i data-lucide="search"></i></div>
+        <h3>SEO Domination</h3>
+        <p>Rank on page one. Technical SEO, keyword strategy, local search domination, and content architecture that compounds organic traffic month over month.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-line"></div><span class="svc-num">003</span>
+        <div class="svc-icon"><i data-lucide="mail"></i></div>
+        <h3>Email Automation</h3>
+        <p>Automated email sequences that nurture leads while you sleep. Welcome series, abandoned carts, follow-ups, and re-engagement campaigns — all on autopilot.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-line"></div><span class="svc-num">004</span>
+        <div class="svc-icon"><i data-lucide="bot"></i></div>
+        <h3>AI Chatbot Integration</h3>
+        <p>Intelligent chatbots that qualify leads, answer FAQs, and book appointments 24/7. Your AI predator never sleeps, never takes breaks, and never misses a catch.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-line"></div><span class="svc-num">005</span>
+        <div class="svc-icon"><i data-lucide="calendar-check"></i></div>
+        <h3>Appointment Booking</h3>
+        <p>Automated scheduling systems that sync with your calendar, send reminders, and reduce no-shows by 60%. Clients book themselves — zero back-and-forth.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-line"></div><span class="svc-num">006</span>
+        <div class="svc-icon"><i data-lucide="phone-missed"></i></div>
+        <h3>Missed Call Text Back</h3>
+        <p>Never lose a lead again. When you miss a call, an instant automated text reaches the caller within seconds — keeping the conversation alive and the lead warm.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-line">
+
+<!-- ====================== PROCESS ====================== -->
+<section id="process" class="section">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-label"><i data-lucide="cpu"></i> Hunt Protocol</div>
+      <h2 class="section-title">From Zero to Live<br>In 4 Phases</h2>
+      <p class="section-desc">A precision-engineered workflow. Clear milestones, daily updates, and zero surprises.</p>
+    </div>
+    <div class="proc-grid">
+      <div class="proc-card">
+        <div class="proc-num">01</div>
+        <h3>Scout</h3>
+        <p>We dissect your goals, audience, and competitors. You leave with a battle plan — no commitment, just a clear strategy to dominate.</p>
+      </div>
+      <div class="proc-card">
+        <div class="proc-num">02</div>
+        <h3>Design</h3>
+        <p>Interactive mockups you can click through before a single line of code is written. Unlimited revisions until it's lethal.</p>
+      </div>
+      <div class="proc-card">
+        <div class="proc-num">03</div>
+        <h3>Build</h3>
+        <p>Every pixel implemented with clean, fast code. Daily progress updates. Tested across every device and browser.</p>
+      </div>
+      <div class="proc-card">
+        <div class="proc-num">04</div>
+        <h3>Deploy</h3>
+        <p>We handle launch, DNS, SSL, analytics, and automation setup. Post-launch training so you own every weapon we build.</p>
+      </div>
+    </div>
+    <div class="text-center" style="margin-top:64px">
+      <a href="mailto:naboth188@gmail.com?subject=I'd%20Like%20to%20Book%20a%20Discovery%20Call&body=Hi%20ROI%20SHARK%2C%0A%0AI'd%20like%20to%20schedule%20a%20free%20strategy%20call.%20Here's%20a%20bit%20about%20my%20business%3A%0A%0A" class="btn btn-lg btn-shark">Book a Strategy Call <i data-lucide="arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<hr class="section-line">
+
+<!-- ====================== PREVIEW BUILDS ====================== -->
+<section id="work" class="section">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-label"><i data-lucide="monitor"></i> Trophy Room</div>
+      <h2 class="section-title">Preview Builds &<br><span class="shark-text">Concept Designs</span></h2>
+      <p class="section-desc">A showcase of the types of sites and systems we build. Each one engineered for conversion, speed, and scale.</p>
+    </div>
+    <div class="preview-grid">
+      <div class="preview-card">
+        <div class="preview-img">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="SaaS Dashboard Preview" loading="lazy">
+          <span class="preview-type">SaaS Dashboard</span>
+        </div>
+        <div class="preview-body">
+          <h3>Analytics Command Center</h3>
+          <p>Real-time data visualization dashboard with AI-powered insights and automated reporting.</p>
+          <div class="preview-tags"><span class="preview-tag">React</span><span class="preview-tag">API</span><span class="preview-tag">Dashboard</span></div>
+        </div>
+      </div>
+      <div class="preview-card">
+        <div class="preview-img">
+          <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80" alt="E-Commerce Store Preview" loading="lazy">
+          <span class="preview-type">E-Commerce</span>
+        </div>
+        <div class="preview-body">
+          <h3>Premium Online Store</h3>
+          <p>Full e-commerce experience with AI chatbot, email automations, and abandoned cart recovery built in.</p>
+          <div class="preview-tags"><span class="preview-tag">Shopify</span><span class="preview-tag">AI Bot</span><span class="preview-tag">Email</span></div>
+        </div>
+      </div>
+      <div class="preview-card">
+        <div class="preview-img">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Corporate Website Preview" loading="lazy">
+          <span class="preview-type">Corporate</span>
+        </div>
+        <div class="preview-body">
+          <h3>Professional Services Site</h3>
+          <p>SEO-optimized corporate site with appointment booking, chatbot, and missed call text back active.</p>
+          <div class="preview-tags"><span class="preview-tag">SEO</span><span class="preview-tag">Booking</span><span class="preview-tag">Chatbot</span></div>
+        </div>
+      </div>
+      <div class="preview-card">
+        <div class="preview-img">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Lead Gen Platform Preview" loading="lazy">
+          <span class="preview-type">Lead Gen</span>
+        </div>
+        <div class="preview-body">
+          <h3>Automated Lead Machine</h3>
+          <p>Landing pages + email sequences + AI qualification. Captures, nurtures, and books leads on autopilot.</p>
+          <div class="preview-tags"><span class="preview-tag">Funnel</span><span class="preview-tag">Email</span><span class="preview-tag">AI</span></div>
+        </div>
+      </div>
+      <div class="preview-card">
+        <div class="preview-img">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Local Business Website Preview" loading="lazy">
+          <span class="preview-type">Local Biz</span>
+        </div>
+        <div class="preview-body">
+          <h3>Local Service Business</h3>
+          <p>Conversion-optimized local business site with Google SEO, booking widget, and missed call automation.</p>
+          <div class="preview-tags"><span class="preview-tag">Local SEO</span><span class="preview-tag">Booking</span><span class="preview-tag">SMS</span></div>
+        </div>
+      </div>
+      <div class="preview-card">
+        <div class="preview-img">
+          <img src="https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=800&q=80" alt="Portfolio Website Preview" loading="lazy">
+          <span class="preview-type">Portfolio</span>
+        </div>
+        <div class="preview-body">
+          <h3>Creator Portfolio</h3>
+          <p>Stunning personal brand site with integrated contact forms, social proof, and automated follow-up sequences.</p>
+          <div class="preview-tags"><span class="preview-tag">Branding</span><span class="preview-tag">Email</span><span class="preview-tag">Design</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-line">
+
+<!-- ====================== PRICING ====================== -->
+<section id="pricing" class="section">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-label"><i data-lucide="zap"></i> Investment</div>
+      <h2 class="section-title">Choose Your<br><span class="shark-text">Attack Tier</span></h2>
+      <p class="section-desc">Transparent pricing. No hidden fees. Every tier includes unlimited revisions and post-launch support.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="price-label">// TIER_01</div>
+        <h3>Strike</h3>
+        <p class="price-sub">Website + basic automation</p>
+        <div class="price-amt">$2,500 <span>one-time</span></div>
+        <p class="price-note">DELIVERED_IN: 1-2 DAYS</p>
+        <div class="price-features">
+          <div class="price-feat"><i data-lucide="check"></i> Custom website (up to 5 pages)</div>
+          <div class="price-feat"><i data-lucide="check"></i> Mobile responsive design</div>
+          <div class="price-feat"><i data-lucide="check"></i> Basic SEO setup</div>
+          <div class="price-feat"><i data-lucide="check"></i> Contact form</div>
+          <div class="price-feat"><i data-lucide="check"></i> 30 days support</div>
+        </div>
+        <a href="mailto:naboth188@gmail.com?subject=Interested%20in%20the%20Strike%20Plan%20(%242%2C500)&body=Hi%20ROI%20SHARK%2C%0A%0AI'm%20interested%20in%20the%20Strike%20plan.%20Can%20we%20set%20up%20a%20call%3F%0A%0A" class="btn btn-lg btn-ghost" style="width:100%">Select Plan</a>
+      </div>
+      <div class="price-card featured">
+        <div class="price-label">// TIER_02 [RECOMMENDED]</div>
+        <h3>Feeding Frenzy</h3>
+        <p class="price-sub">Website + full automation stack</p>
+        <div class="price-amt">$5,000 <span>one-time</span></div>
+        <p class="price-note">DELIVERED_IN: 2-3 DAYS</p>
+        <div class="price-features">
+          <div class="price-feat"><i data-lucide="check"></i> Custom website (up to 10 pages)</div>
+          <div class="price-feat"><i data-lucide="check"></i> Full SEO optimization</div>
+          <div class="price-feat"><i data-lucide="check"></i> AI chatbot integration</div>
+          <div class="price-feat"><i data-lucide="check"></i> Email automation (3 sequences)</div>
+          <div class="price-feat"><i data-lucide="check"></i> Appointment booking system</div>
+          <div class="price-feat"><i data-lucide="check"></i> Missed call text back</div>
+          <div class="price-feat"><i data-lucide="check"></i> 90 days priority support</div>
+        </div>
+        <a href="mailto:naboth188@gmail.com?subject=Interested%20in%20the%20Feeding%20Frenzy%20Plan%20(%245%2C000)&body=Hi%20ROI%20SHARK%2C%0A%0AI'm%20interested%20in%20the%20Feeding%20Frenzy%20plan%20with%20full%20automation.%20Can%20we%20set%20up%20a%20call%3F%0A%0A" class="btn btn-lg btn-shark" style="width:100%">Select Plan</a>
+      </div>
+      <div class="price-card">
+        <div class="price-label">// TIER_03</div>
+        <h3>Apex Predator</h3>
+        <p class="price-sub">Full system + ongoing domination</p>
+        <div class="price-amt">Custom</div>
+        <p class="price-note">SCOPE_DEPENDENT</p>
+        <div class="price-features">
+          <div class="price-feat"><i data-lucide="check"></i> Everything in Feeding Frenzy</div>
+          <div class="price-feat"><i data-lucide="check"></i> Unlimited pages & features</div>
+          <div class="price-feat"><i data-lucide="check"></i> Custom web application</div>
+          <div class="price-feat"><i data-lucide="check"></i> Advanced AI workflows</div>
+          <div class="price-feat"><i data-lucide="check"></i> Monthly SEO retainer</div>
+          <div class="price-feat"><i data-lucide="check"></i> Dedicated account manager</div>
+        </div>
+        <a href="mailto:naboth188@gmail.com?subject=Interested%20in%20the%20Apex%20Predator%20Plan%20(Custom)&body=Hi%20ROI%20SHARK%2C%0A%0AI'm%20interested%20in%20the%20Apex%20Predator%20custom%20solution.%20Here's%20what%20I%20need%3A%0A%0A" class="btn btn-lg btn-ghost" style="width:100%">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-line">
+
+<!-- ====================== CTA ====================== -->
+<section id="cta" class="section cta-section">
+  <div class="container">
+    <div class="cta-box">
+      <div class="cta-glow cta-glow-1"></div>
+      <div style="position:relative;z-index:10">
+        <div class="section-label" style="justify-content:center"><i data-lucide="rocket"></i> Execute</div>
+        <h2 class="section-title" style="margin-bottom:20px">Your Competitors Are<br><span class="grad-text">Already Swimming</span></h2>
+        <p style="font-size:17px;color:var(--fg-muted);max-width:520px;margin:0 auto 16px;line-height:1.7">Every day without a system is revenue bleeding into the water. Book a free strategy call — we'll map out exactly how to dominate your market.</p>
+        <p style="font-size:12px;color:var(--fg-dim);margin-bottom:40px;font-family:var(--mono);letter-spacing:1px">ZERO_COMMITMENT // RESPONSE_TIME: 24H</p>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px">
+          <a href="mailto:naboth188@gmail.com?subject=I'd%20Like%20to%20Book%20a%20Free%20Strategy%20Call&body=Hi%20ROI%20SHARK%2C%0A%0AI'd%20like%20to%20book%20a%20free%20strategy%20call.%20Here's%20a%20bit%20about%20my%20business%20and%20what%20I%20need%3A%0A%0A" class="btn btn-xl btn-shark" style="box-shadow:0 0 50px var(--shark-glow-strong),0 8px 30px rgba(0,0,0,.5)">Book Free Strategy Call <i data-lucide="calendar"></i></a>
+          <a href="mailto:naboth188@gmail.com" class="btn btn-lg btn-ghost"><i data-lucide="mail"></i> naboth188@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== FOOTER ====================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="logo" style="margin-bottom:4px">
+          <img src="shark-logo.png" alt="ROI Shark" class="footer-logo-shark">
+          <span class="logo-text">ROI <span>SHARK</span></span>
+        </div>
+        <p class="footer-desc">We build websites, automations, and AI systems that hunt down results and devour the competition. From concept to conversion — with teeth.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+          <a href="#" class="footer-social" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+          <a href="#" class="footer-social" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-h">Services</h4>
+        <ul class="footer-ul">
+          <li><a href="#">Website Design</a></li>
+          <li><a href="#">SEO Domination</a></li>
+          <li><a href="#">Email Automation</a></li>
+          <li><a href="#">AI Chatbots</a></li>
+          <li><a href="#">Appointment Booking</a></li>
+          <li><a href="#">Missed Call Text Back</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-h">Company</h4>
+        <ul class="footer-ul">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#work">Our Work</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-h">Contact</h4>
+        <ul class="footer-ul">
+          <li><a href="mailto:naboth188@gmail.com">naboth188@gmail.com</a></li>
+          <li><a href="tel:+12404218510">(240) 421-8510</a></li>
+          <li><span style="color:var(--fg-dim)">Mon–Fri: 9am – 6pm</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 ROI SHARK // ALL_RIGHTS_RESERVED</p>
+      <div style="display:flex;gap:24px"><a href="#" style="color:var(--fg-dim)">Privacy</a><a href="#" style="color:var(--fg-dim)">Terms</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+lucide.createIcons();
+window.addEventListener('scroll',function(){document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50)});
+
+/* Hero video parallax & performance */
+(function(){
+  var video = document.getElementById('heroVideo');
+  var hero = document.getElementById('hero-section');
+  
+  // Slow down playback for cinematic effect
+  if(video) video.playbackRate = 0.75;
+  
+  // Subtle parallax on scroll
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if(!ticking){
+      window.requestAnimationFrame(function(){
+        var scrolled = window.scrollY;
+        var heroH = hero ? hero.offsetHeight : 800;
+        if(scrolled < heroH && video){
+          video.style.transform = 'translate(-50%, calc(-50% + ' + (scrolled * 0.15) + 'px))';
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+  
+  // Pause video when not visible for performance
+  if(video && 'IntersectionObserver' in window){
+    var vidObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ video.play(); } else { video.pause(); }
+      });
+    }, {threshold:0.1});
+    vidObserver.observe(hero);
+  }
+})();
+
+var menuOpen=false;
+document.getElementById('menuBtn').addEventListener('click',function(){
+  menuOpen=!menuOpen;
+  document.getElementById('mobileMenu').classList.toggle('open',menuOpen);
+  this.setAttribute('aria-expanded',menuOpen);
+  document.getElementById('menuIcon').setAttribute('data-lucide',menuOpen?'x':'menu');
+  lucide.createIcons();
+});
+function closeMenu(){
+  menuOpen=false;
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('menuBtn').setAttribute('aria-expanded','false');
+  document.getElementById('menuIcon').setAttribute('data-lucide','menu');
+  lucide.createIcons();
+}
+
+var observer = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      entry.target.style.opacity='1';
+      entry.target.style.animation='fadeUp .6s ease-out both';
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:0.05});
+
+document.querySelectorAll('.svc-card,.proc-card,.preview-card,.price-card').forEach(function(el,i){
+  el.style.opacity='0';
+  el.style.animationDelay=(i*0.05)+'s';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
